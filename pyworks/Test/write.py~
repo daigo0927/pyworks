@@ -1,0 +1,5 @@
+
+
+f = open("write2.txt", "w")
+f.write("kakikomi")
+f.close()

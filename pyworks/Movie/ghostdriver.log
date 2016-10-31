@@ -1,0 +1,27 @@
+[INFO  - 2016-09-27T07:45:13.090Z] GhostDriver - Main - running on port 57490
+[INFO  - 2016-09-27T07:45:13.663Z] Session [5321d8b0-8486-11e6-a007-ff27d351fe8d] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2016-09-27T07:45:13.663Z] Session [5321d8b0-8486-11e6-a007-ff27d351fe8d] - page.customHeaders:  - {}
+[INFO  - 2016-09-27T07:45:13.663Z] Session [5321d8b0-8486-11e6-a007-ff27d351fe8d] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"mac-10.10 (Yosemite)-64bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2016-09-27T07:45:13.663Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: 5321d8b0-8486-11e6-a007-ff27d351fe8d
+[ERROR - 2016-09-27T07:45:14.653Z] Session [5321d8b0-8486-11e6-a007-ff27d351fe8d] - page.onError - msg: TypeError: undefined is not an object (evaluating 'b.ad_tag')
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2016-09-27T07:45:14.653Z] Session [5321d8b0-8486-11e6-a007-ff27d351fe8d] - page.onError - stack:
+  passback (http://yads.yahoo.co.jp/js/yads.js:1)
+  pattern (http://i.yimg.jp/images/listing/tool/yads/editorial/v1/image_attached_free_pc/editorial-image_attached_free_pc.min.js:3)
+  imageAttachedFreeThumbnailPC (http://i.yimg.jp/images/listing/tool/yads/editorial/v1/image_attached_free_pc/editorial-image_attached_free_pc.min.js:3)
+  A (http://yads.yahoo.co.jp/js/yads.js:1)
+  onload (http://yads.yahoo.co.jp/js/yads.js:1)
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2016-09-27T07:45:14.791Z] Session [5321d8b0-8486-11e6-a007-ff27d351fe8d] - page.onError - msg: TypeError: undefined is not an object (evaluating 'b.ad_tag')
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2016-09-27T07:45:14.791Z] Session [5321d8b0-8486-11e6-a007-ff27d351fe8d] - page.onError - stack:
+  passback (http://yads.yahoo.co.jp/js/yads.js:1)
+  pattern (http://i.yimg.jp/images/listing/tool/yads/editorial/v1/image_attached_free_pc/editorial-image_attached_free_pc.min.js:3)
+  imageAttachedFreeThumbnailPC (http://i.yimg.jp/images/listing/tool/yads/editorial/v1/image_attached_free_pc/editorial-image_attached_free_pc.min.js:3)
+  A (http://yads.yahoo.co.jp/js/yads.js:1)
+  renderAd_v2 (http://yads.yahoo.co.jp/js/yads.js:1)
+
+  phantomjs://platform/console++.js:263 in error
