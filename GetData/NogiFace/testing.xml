@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<?xml-stylesheet type='text/xsl' href='image_metadata_stylesheet.xsl'?>
+<dataset>
+<name>imglab dataset</name>
+<images>
+<image file='/Users/Daigo/Pictures/example/nogi1.jpg'>
+<box top='355' left='330' width='85' height='86'/>
+<box top='367' left='432' width='78' height='71'/>
+</image>
+</images>
+</dataset>

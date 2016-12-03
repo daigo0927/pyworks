@@ -1,0 +1,2 @@
+/Users/Daigo/Pictures/example/asuka1.jpeg 1 282 184 395 380 
+/Users/Daigo/Pictures/example/asuka2.jpeg 1 117 69 168 166 
