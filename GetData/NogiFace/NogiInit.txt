@@ -1,0 +1,147 @@
+/Users/Daigo/Desktop/Nogi/SS.png 1 269 79 572 552 
+/Users/Daigo/Desktop/Nogi/SS_1.png 1 345 30 549 525 
+/Users/Daigo/Desktop/Nogi/SS_10.png 1 785 100 374 374 
+/Users/Daigo/Desktop/Nogi/SS_100.png 1 239 45 565 543 
+/Users/Daigo/Desktop/Nogi/SS_101.png 1 361 96 555 559 
+/Users/Daigo/Desktop/Nogi/SS_102.png 1 519 28 547 506 
+/Users/Daigo/Desktop/Nogi/SS_103.png 2 324 134 367 340 975 161 259 261 
+/Users/Daigo/Desktop/Nogi/SS_104.png 2 221 127 361 341 864 184 221 230 
+/Users/Daigo/Desktop/Nogi/SS_105.png 3 213 138 303 292 805 197 228 238 1063 225 135 132 
+/Users/Daigo/Desktop/Nogi/SS_106.png 2 206 94 313 307 942 163 219 208 
+/Users/Daigo/Desktop/Nogi/SS_107.png 1 320 30 658 612 
+/Users/Daigo/Desktop/Nogi/SS_108.png 1 291 14 667 613 
+/Users/Daigo/Desktop/Nogi/SS_109.png 1 332 1 661 621 
+/Users/Daigo/Desktop/Nogi/SS_11.png 3 291 173 138 131 461 131 175 163 891 130 157 150 
+/Users/Daigo/Desktop/Nogi/SS_110.png 1 307 6 609 591 
+/Users/Daigo/Desktop/Nogi/SS_111.png 1 347 38 563 540 
+/Users/Daigo/Desktop/Nogi/SS_112.png 1 433 78 432 457 
+/Users/Daigo/Desktop/Nogi/SS_113.png 2 129 149 357 372 665 161 322 354 
+/Users/Daigo/Desktop/Nogi/SS_114.png 1 560 54 272 271 
+/Users/Daigo/Desktop/Nogi/SS_115.png 3 250 193 205 193 534 253 193 183 816 268 176 165 
+/Users/Daigo/Desktop/Nogi/SS_116.png 3 299 185 200 199 609 218 199 193 912 260 179 176 
+/Users/Daigo/Desktop/Nogi/SS_117.png 2 459 141 290 273 793 195 285 266 
+/Users/Daigo/Desktop/Nogi/SS_118.png 2 425 137 290 266 703 234 214 205 
+/Users/Daigo/Desktop/Nogi/SS_119.png 2 302 155 289 270 574 273 228 224 
+/Users/Daigo/Desktop/Nogi/SS_12.png 1 384 102 413 402 
+/Users/Daigo/Desktop/Nogi/SS_120.png 2 260 181 210 198 546 202 236 221 
+/Users/Daigo/Desktop/Nogi/SS_121.png 2 260 176 216 207 570 195 191 188 
+/Users/Daigo/Desktop/Nogi/SS_122.png 2 292 152 379 390 704 132 425 402 
+/Users/Daigo/Desktop/Nogi/SS_123.png 2 289 137 400 416 713 117 424 417 
+/Users/Daigo/Desktop/Nogi/SS_124.png 2 285 139 398 403 701 112 450 421 
+/Users/Daigo/Desktop/Nogi/SS_125.png 2 279 130 408 421 696 120 434 412 
+/Users/Daigo/Desktop/Nogi/SS_126.png 3 198 210 200 185 237 425 215 216 659 467 209 191 
+/Users/Daigo/Desktop/Nogi/SS_127.png 1 399 75 588 550 
+/Users/Daigo/Desktop/Nogi/SS_128.png 1 419 135 316 314 
+/Users/Daigo/Desktop/Nogi/SS_129.png 1 514 112 406 373 
+/Users/Daigo/Desktop/Nogi/SS_13.png 1 464 252 310 291 
+/Users/Daigo/Desktop/Nogi/SS_130.png 1 584 137 267 249 
+/Users/Daigo/Desktop/Nogi/SS_131.png 1 421 141 389 360 
+/Users/Daigo/Desktop/Nogi/SS_132.png 1 424 68 479 453 
+/Users/Daigo/Desktop/Nogi/SS_133.png 1 481 62 403 384 
+/Users/Daigo/Desktop/Nogi/SS_134.png 1 483 82 316 292 
+/Users/Daigo/Desktop/Nogi/SS_135.png 2 285 200 150 148 910 161 140 140 
+/Users/Daigo/Desktop/Nogi/SS_136.png 1 404 82 452 445 
+/Users/Daigo/Desktop/Nogi/SS_137.png 3 217 104 257 277 3 335 152 164 730 76 431 406 
+/Users/Daigo/Desktop/Nogi/SS_138.png 2 190 108 274 274 759 71 413 389 
+/Users/Daigo/Desktop/Nogi/SS_139.png 2 167 71 333 321 778 56 411 405 
+/Users/Daigo/Desktop/Nogi/SS_14.png 2 312 319 253 260 614 135 289 268 
+/Users/Daigo/Desktop/Nogi/SS_140.png 1 363 64 469 445 
+/Users/Daigo/Desktop/Nogi/SS_141.png 1 776 47 452 431 
+/Users/Daigo/Desktop/Nogi/SS_142.png 2 584 74 289 269 1090 179 163 170 
+/Users/Daigo/Desktop/Nogi/SS_143.png 1 598 89 270 248 
+/Users/Daigo/Desktop/Nogi/SS_144.png 1 604 88 263 249 
+/Users/Daigo/Desktop/Nogi/SS_145.png 1 600 86 283 277 
+/Users/Daigo/Desktop/Nogi/SS_146.png 1 602 81 303 283 
+/Users/Daigo/Desktop/Nogi/SS_147.png 2 719 74 278 260 161 488 180 189 
+/Users/Daigo/Desktop/Nogi/SS_148.png 1 764 114 239 234 
+/Users/Daigo/Desktop/Nogi/SS_15.png 2 744 261 279 269 519 468 248 242 
+/Users/Daigo/Desktop/Nogi/SS_16.png 2 643 151 288 275 414 363 246 248 
+/Users/Daigo/Desktop/Nogi/SS_17.png 5 301 422 139 141 403 219 140 140 611 146 133 125 756 290 127 138 861 276 147 139 
+/Users/Daigo/Desktop/Nogi/SS_18.png 1 445 134 310 308 
+/Users/Daigo/Desktop/Nogi/SS_19.png 1 529 162 332 330 
+/Users/Daigo/Desktop/Nogi/SS_2.png 5 56 330 291 278 180 55 266 280 507 38 259 254 862 82 270 264 902 380 291 274 
+/Users/Daigo/Desktop/Nogi/SS_20.png 1 490 154 292 290 
+/Users/Daigo/Desktop/Nogi/SS_21.png 3 273 211 239 257 498 169 238 231 987 223 222 210 
+/Users/Daigo/Desktop/Nogi/SS_22.png 3 137 275 205 200 560 251 210 196 851 128 274 266 
+/Users/Daigo/Desktop/Nogi/SS_23.png 4 143 265 211 203 657 237 190 184 488 328 127 131 865 106 308 297 
+/Users/Daigo/Desktop/Nogi/SS_24.png 3 446 135 275 288 697 171 222 233 906 222 223 213 
+/Users/Daigo/Desktop/Nogi/SS_25.png 1 455 139 290 292 
+/Users/Daigo/Desktop/Nogi/SS_26.png 1 451 156 307 287 
+/Users/Daigo/Desktop/Nogi/SS_27.png 1 473 110 378 371 
+/Users/Daigo/Desktop/Nogi/SS_28.png 2 463 116 438 456 132 386 344 324 
+/Users/Daigo/Desktop/Nogi/SS_29.png 1 485 135 457 448 
+/Users/Daigo/Desktop/Nogi/SS_3.png 5 231 334 85 85 404 312 92 92 561 316 100 93 755 325 101 93 920 339 94 86 
+/Users/Daigo/Desktop/Nogi/SS_30.png 1 531 158 308 284 
+/Users/Daigo/Desktop/Nogi/SS_31.png 1 423 220 274 256 
+/Users/Daigo/Desktop/Nogi/SS_32.png 1 482 176 288 267 
+/Users/Daigo/Desktop/Nogi/SS_33.png 1 459 255 273 259 
+/Users/Daigo/Desktop/Nogi/SS_34.png 2 459 150 338 332 991 200 267 259 
+/Users/Daigo/Desktop/Nogi/SS_35.png 1 459 179 400 376 
+/Users/Daigo/Desktop/Nogi/SS_36.png 2 383 131 259 265 672 162 245 235 
+/Users/Daigo/Desktop/Nogi/SS_37.png 2 350 139 272 272 656 160 249 243 
+/Users/Daigo/Desktop/Nogi/SS_38.png 3 68 191 237 248 323 193 212 230 709 207 226 227 
+/Users/Daigo/Desktop/Nogi/SS_39.png 1 560 154 560 540 
+/Users/Daigo/Desktop/Nogi/SS_4.png 1 801 117 368 358 
+/Users/Daigo/Desktop/Nogi/SS_40.png 1 478 44 699 646 
+/Users/Daigo/Desktop/Nogi/SS_41.png 3 260 170 195 201 596 233 175 168 870 243 188 178 
+/Users/Daigo/Desktop/Nogi/SS_42.png 2 426 215 245 259 674 255 233 222 
+/Users/Daigo/Desktop/Nogi/SS_43.png 1 475 207 223 209 
+/Users/Daigo/Desktop/Nogi/SS_44.png 1 245 87 660 617 
+/Users/Daigo/Desktop/Nogi/SS_45.png 2 202 206 222 220 545 228 213 197 
+/Users/Daigo/Desktop/Nogi/SS_46.png 3 383 262 178 170 622 283 183 169 849 285 187 177 
+/Users/Daigo/Desktop/Nogi/SS_47.png 1 619 151 310 289 
+/Users/Daigo/Desktop/Nogi/SS_48.png 1 290 91 606 594 
+/Users/Daigo/Desktop/Nogi/SS_49.png 2 291 158 392 394 708 154 417 386 
+/Users/Daigo/Desktop/Nogi/SS_5.png 2 579 121 357 389 958 221 321 349 
+/Users/Daigo/Desktop/Nogi/SS_50.png 1 354 84 646 592 
+/Users/Daigo/Desktop/Nogi/SS_51.png 1 476 140 373 388 
+/Users/Daigo/Desktop/Nogi/SS_52.png 2 224 144 229 243 861 151 258 260 
+/Users/Daigo/Desktop/Nogi/SS_53.png 1 555 103 209 198 
+/Users/Daigo/Desktop/Nogi/SS_54.png 1 311 96 347 333 
+/Users/Daigo/Desktop/Nogi/SS_55.png 4 84 117 186 190 303 205 177 184 689 173 193 183 942 141 197 185 
+/Users/Daigo/Desktop/Nogi/SS_56.png 2 298 161 355 335 901 153 337 330 
+/Users/Daigo/Desktop/Nogi/SS_57.png 2 446 136 375 354 1001 208 270 288 
+/Users/Daigo/Desktop/Nogi/SS_58.png 2 201 206 319 294 804 136 292 283 
+/Users/Daigo/Desktop/Nogi/SS_59.png 6 118 158 114 115 329 184 119 117 525 177 117 119 710 156 130 124 904 160 133 129 1075 165 127 137 
+/Users/Daigo/Desktop/Nogi/SS_6.png 1 447 57 432 420 
+/Users/Daigo/Desktop/Nogi/SS_60.png 3 626 127 227 230 279 57 258 261 1091 126 186 174 
+/Users/Daigo/Desktop/Nogi/SS_61.png 2 337 155 257 253 982 198 239 241 
+/Users/Daigo/Desktop/Nogi/SS_62.png 4 127 235 137 134 499 189 155 145 772 162 169 167 1039 108 184 173 
+/Users/Daigo/Desktop/Nogi/SS_63.png 1 403 91 483 453 
+/Users/Daigo/Desktop/Nogi/SS_64.png 2 633 156 142 133 876 102 152 141 
+/Users/Daigo/Desktop/Nogi/SS_65.png 1 484 103 340 318 
+/Users/Daigo/Desktop/Nogi/SS_66.png 1 456 94 406 379 
+/Users/Daigo/Desktop/Nogi/SS_67.png 1 391 83 443 442 
+/Users/Daigo/Desktop/Nogi/SS_68.png 1 574 135 353 341 
+/Users/Daigo/Desktop/Nogi/SS_69.png 1 361 210 390 361 
+/Users/Daigo/Desktop/Nogi/SS_7.png 5 61 335 269 289 156 75 246 257 488 45 268 276 835 91 262 264 906 384 291 266 
+/Users/Daigo/Desktop/Nogi/SS_70.png 2 146 195 305 319 555 317 323 306 
+/Users/Daigo/Desktop/Nogi/SS_71.png 1 713 152 343 326 
+/Users/Daigo/Desktop/Nogi/SS_72.png 2 287 110 455 437 1074 566 117 122 
+/Users/Daigo/Desktop/Nogi/SS_73.png 1 546 104 427 417 
+/Users/Daigo/Desktop/Nogi/SS_74.png 3 512 120 377 400 958 236 314 317 105 247 325 326 
+/Users/Daigo/Desktop/Nogi/SS_75.png 1 454 64 472 465 
+/Users/Daigo/Desktop/Nogi/SS_76.png 2 279 94 250 248 716 315 223 208 
+/Users/Daigo/Desktop/Nogi/SS_77.png 2 287 123 244 229 644 302 219 202 
+/Users/Daigo/Desktop/Nogi/SS_78.png 3 312 143 204 197 806 243 188 177 180 284 140 143 
+/Users/Daigo/Desktop/Nogi/SS_79.png 3 290 136 255 239 860 228 215 215 117 321 186 196 
+/Users/Daigo/Desktop/Nogi/SS_8.png 5 105 359 262 275 221 83 229 248 551 55 243 251 890 66 252 266 941 372 285 292 
+/Users/Daigo/Desktop/Nogi/SS_80.png 4 519 200 202 197 883 321 135 128 397 182 114 108 252 387 151 157 
+/Users/Daigo/Desktop/Nogi/SS_81.png 2 353 165 227 222 756 151 244 239 
+/Users/Daigo/Desktop/Nogi/SS_82.png 2 460 95 305 279 944 417 257 249 
+/Users/Daigo/Desktop/Nogi/SS_83.png 1 494 83 457 428 
+/Users/Daigo/Desktop/Nogi/SS_84.png 1 501 166 190 178 
+/Users/Daigo/Desktop/Nogi/SS_87.png 1 588 92 444 462 
+/Users/Daigo/Desktop/Nogi/SS_88.png 1 336 133 439 424 
+/Users/Daigo/Desktop/Nogi/SS_89.png 1 519 140 365 345 
+/Users/Daigo/Desktop/Nogi/SS_9.png 5 210 329 94 90 392 319 97 89 568 312 96 90 754 316 99 103 929 337 90 87 
+/Users/Daigo/Desktop/Nogi/SS_90.png 1 294 149 360 362 
+/Users/Daigo/Desktop/Nogi/SS_91.png 4 52 253 96 97 357 205 102 104 614 163 151 148 964 231 103 107 
+/Users/Daigo/Desktop/Nogi/SS_92.png 3 284 227 113 114 601 168 152 141 964 245 111 106 
+/Users/Daigo/Desktop/Nogi/SS_93.png 2 494 172 258 257 1148 307 131 139 
+/Users/Daigo/Desktop/Nogi/SS_94.png 5 569 150 162 168 162 205 142 139 354 231 109 108 777 227 121 112 1015 204 152 145 
+/Users/Daigo/Desktop/Nogi/SS_95.png 2 1011 194 121 119 849 197 103 100 
+/Users/Daigo/Desktop/Nogi/SS_96.png 2 524 116 323 325 7 175 178 190 
+/Users/Daigo/Desktop/Nogi/SS_97.png 1 410 56 524 518 
+/Users/Daigo/Desktop/Nogi/SS_98.png 4 852 287 103 103 1072 205 158 155 253 206 166 159 589 331 96 90 
+/Users/Daigo/Desktop/Nogi/SS_99.png 7 602 213 146 144 774 253 116 113 927 210 135 142 1117 231 131 127 375 247 134 142 219 228 120 122 103 250 139 148 

@@ -3,9 +3,139 @@
 <dataset>
 <name>imglab dataset</name>
 <images>
-<image file='/Users/Daigo/Pictures/example/nogi1.jpg'>
-<box top='355' left='330' width='85' height='86'/>
-<box top='367' left='432' width='78' height='71'/>
+<image file='/Users/Daigo/Desktop/Nogi/SS_70.png'>
+<box top='195' left='146' width='305' height='319'/>
+<box top='317' left='555' width='323' height='306'/>
+</image>
+<image file='/Users/Daigo/Desktop/Nogi/SS_71.png'>
+<box top='152' left='713' width='343' height='326'/>
+</image>
+<image file='/Users/Daigo/Desktop/Nogi/SS_72.png'>
+<box top='110' left='287' width='455' height='437'/>
+<box top='566' left='1074' width='117' height='122'/>
+</image>
+<image file='/Users/Daigo/Desktop/Nogi/SS_73.png'>
+<box top='104' left='546' width='427' height='417'/>
+</image>
+<image file='/Users/Daigo/Desktop/Nogi/SS_74.png'>
+<box top='120' left='512' width='377' height='400'/>
+<box top='236' left='958' width='314' height='317'/>
+<box top='247' left='105' width='325' height='326'/>
+</image>
+<image file='/Users/Daigo/Desktop/Nogi/SS_75.png'>
+<box top='64' left='454' width='472' height='465'/>
+</image>
+<image file='/Users/Daigo/Desktop/Nogi/SS_76.png'>
+<box top='94' left='279' width='250' height='248'/>
+<box top='315' left='716' width='223' height='208'/>
+</image>
+<image file='/Users/Daigo/Desktop/Nogi/SS_77.png'>
+<box top='123' left='287' width='244' height='229'/>
+<box top='302' left='644' width='219' height='202'/>
+</image>
+<image file='/Users/Daigo/Desktop/Nogi/SS_78.png'>
+<box top='143' left='312' width='204' height='197'/>
+<box top='243' left='806' width='188' height='177'/>
+<box top='284' left='180' width='140' height='143'/>
+</image>
+<image file='/Users/Daigo/Desktop/Nogi/SS_79.png'>
+<box top='136' left='290' width='255' height='239'/>
+<box top='228' left='860' width='215' height='215'/>
+<box top='321' left='117' width='186' height='196'/>
+</image>
+<image file='/Users/Daigo/Desktop/Nogi/SS_8.png'>
+<box top='359' left='105' width='262' height='275'/>
+<box top='83' left='221' width='229' height='248'/>
+<box top='55' left='551' width='243' height='251'/>
+<box top='66' left='890' width='252' height='266'/>
+<box top='372' left='941' width='285' height='292'/>
+</image>
+<image file='/Users/Daigo/Desktop/Nogi/SS_80.png'>
+<box top='200' left='519' width='202' height='197'/>
+<box top='321' left='883' width='135' height='128'/>
+<box top='182' left='397' width='114' height='108'/>
+<box top='387' left='252' width='151' height='157'/>
+</image>
+<image file='/Users/Daigo/Desktop/Nogi/SS_81.png'>
+<box top='165' left='353' width='227' height='222'/>
+<box top='151' left='756' width='244' height='239'/>
+</image>
+<image file='/Users/Daigo/Desktop/Nogi/SS_82.png'>
+<box top='95' left='460' width='305' height='279'/>
+<box top='417' left='944' width='257' height='249'/>
+</image>
+<image file='/Users/Daigo/Desktop/Nogi/SS_83.png'>
+<box top='83' left='494' width='457' height='428'/>
+</image>
+<image file='/Users/Daigo/Desktop/Nogi/SS_84.png'>
+<box top='166' left='501' width='190' height='178'/>
+</image>
+<image file='/Users/Daigo/Desktop/Nogi/SS_87.png'>
+<box top='92' left='588' width='444' height='462'/>
+</image>
+<image file='/Users/Daigo/Desktop/Nogi/SS_88.png'>
+<box top='133' left='336' width='439' height='424'/>
+</image>
+<image file='/Users/Daigo/Desktop/Nogi/SS_89.png'>
+<box top='140' left='519' width='365' height='345'/>
+</image>
+<image file='/Users/Daigo/Desktop/Nogi/SS_9.png'>
+<box top='329' left='210' width='94' height='90'/>
+<box top='319' left='392' width='97' height='89'/>
+<box top='312' left='568' width='96' height='90'/>
+<box top='316' left='754' width='99' height='103'/>
+<box top='337' left='929' width='90' height='87'/>
+</image>
+<image file='/Users/Daigo/Desktop/Nogi/SS_90.png'>
+<box top='149' left='294' width='360' height='362'/>
+</image>
+<image file='/Users/Daigo/Desktop/Nogi/SS_91.png'>
+<box top='253' left='52' width='96' height='97'/>
+<box top='205' left='357' width='102' height='104'/>
+<box top='163' left='614' width='151' height='148'/>
+<box top='231' left='964' width='103' height='107'/>
+</image>
+<image file='/Users/Daigo/Desktop/Nogi/SS_92.png'>
+<box top='227' left='284' width='113' height='114'/>
+<box top='168' left='601' width='152' height='141'/>
+<box top='245' left='964' width='111' height='106'/>
+</image>
+<image file='/Users/Daigo/Desktop/Nogi/SS_93.png'>
+<box top='172' left='494' width='258' height='257'/>
+<box top='307' left='1148' width='131' height='139'/>
+</image>
+<image file='/Users/Daigo/Desktop/Nogi/SS_94.png'>
+<box top='150' left='569' width='162' height='168'/>
+<box top='205' left='162' width='142' height='139'/>
+<box top='231' left='354' width='109' height='108'/>
+<box top='227' left='777' width='121' height='112'/>
+<box top='204' left='1015' width='152' height='145'/>
+</image>
+<image file='/Users/Daigo/Desktop/Nogi/SS_95.png'>
+<box top='194' left='1011' width='121' height='119'/>
+<box top='197' left='849' width='103' height='100'/>
+</image>
+<image file='/Users/Daigo/Desktop/Nogi/SS_96.png'>
+<box top='116' left='524' width='323' height='325'/>
+<box top='175' left='7' width='178' height='190'/>
+</image>
+<image file='/Users/Daigo/Desktop/Nogi/SS_97.png'>
+<box top='56' left='410' width='524' height='518'/>
+</image>
+<image file='/Users/Daigo/Desktop/Nogi/SS_98.png'>
+<box top='287' left='852' width='103' height='103'/>
+<box top='205' left='1072' width='158' height='155'/>
+<box top='206' left='253' width='166' height='159'/>
+<box top='331' left='589' width='96' height='90'/>
+</image>
+<image file='/Users/Daigo/Desktop/Nogi/SS_99.png'>
+<box top='213' left='602' width='146' height='144'/>
+<box top='253' left='774' width='116' height='113'/>
+<box top='210' left='927' width='135' height='142'/>
+<box top='231' left='1117' width='131' height='127'/>
+<box top='247' left='375' width='134' height='142'/>
+<box top='228' left='219' width='120' height='122'/>
+<box top='250' left='103' width='139' height='148'/>
 </image>
 </images>
 </dataset>
