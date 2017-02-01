@@ -22,7 +22,7 @@ class ShadeModel:
                  ):
         self.dimension = len(np.array(input_lim))
         self.mix = mixture_size
-
+        self.grid = grid_size
         
         xgrid = np.linspace(0, input_lim[0], grid_size[0])
         ygrid = np.linspace(0, input_lim[1], grid_size[1])
@@ -87,10 +87,13 @@ class ShadeModel:
         x = self.xy[:, 0]
         y = self.xy[:, 1]
         z = self.predict(self.xy, frame=frame)
+        xgrid = x.reshape(self.grid[0], self.grid[1])
+        ygrid = y.reshape(self.grid[0], self.grid[1])
+        zgrid = z.reshape(self.grid[0], self.grid[1])
         
         if(axtype == 'wireframe'): ax.plot_wireframe(x, y, z)
-        elif(axtype == 'contour'): ax.contour3D(x, y, z)
-        elif(axtype == 'contourf'): ax.contourf3D(x, y, z)
+        elif(axtype == 'contour'): ax.contour3D(xgrid, ygrid, zgrid)
+        elif(axtype == 'contourf'): ax.contourf3D(xgrid, ygrid, zgrid)
         plt.show()
         
             
