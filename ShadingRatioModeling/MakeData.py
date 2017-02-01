@@ -29,7 +29,7 @@ class TrueShade:
         
         self.dimension = len(np.array(input_lim))
         self.mix = mixture_size
-
+        
         xgrid = np.linspace(0, input_lim[0], grid_size[0])
         ygrid = np.linspace(0, input_lim[1], grid_size[1])
         xy = []
@@ -77,14 +77,16 @@ class TrueShade:
         [z.append(self.GenerateFrame(frame = f)) for f in self.frame]
         return(np.array(z))
 
-    def ShadePlot(self, frame_num=0):
+    def ShadePlot(self, frame_num=0, axtype='wireframe'):
         fig = plt.figure()
         ax = Axes3D(fig)
         x = self.xy[:, 0]
         y = self.xy[:, 1]
         z = self.Generate()
         
-        ax.plot_wireframe(x, y, z[frame_num])
+        if(axtype == 'wireframe'): ax.plot_wireframe(x, y, z[frame_num])
+        elif(axtype == 'contour'): ax.contour3D(x, y, z[frame_num])
+        elif(aaxtype == 'contourf'): ax.contourf3D(x, y, z(frame_num))
         plt.show()
 
 
