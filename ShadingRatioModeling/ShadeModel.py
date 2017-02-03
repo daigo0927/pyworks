@@ -43,7 +43,7 @@ class ShadeModel:
         self.params['covs'] = cov.reshape(mixture_size, self.dimension**2)
         weight = np.ones(mixture_size)
         self.params['pi'] = weight/sum(weight)
-        self.params['move'] = np.random.rand(mixture_size, self.dimension)*input_lim
+        self.params['move'] = np.random.rand(mixture_size, self.dimension)*(input_lim/frame_num/5)
         
         self.logistic_coefficient = logistic_coefficient
 

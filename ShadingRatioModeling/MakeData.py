@@ -1,4 +1,4 @@
-import sys, os
+ediimport sys, os
 sys.path.append(os.pardir)
 import numpy as np
 import matplotlib.pyplot as plt
@@ -10,7 +10,6 @@ from scipy.stats import multivariate_normal
 from mpl_toolkits.mplot3d.axes3d import Axes3D
 from misc import *
 import pdb
-
 
 class TrueShade:
     np.random.seed(1)
