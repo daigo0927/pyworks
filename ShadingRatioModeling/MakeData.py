@@ -1,4 +1,4 @@
-ediimport sys, os
+import sys, os
 sys.path.append(os.pardir)
 import numpy as np
 import matplotlib.pyplot as plt
