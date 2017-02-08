@@ -45,8 +45,8 @@ class TrueShade:
         self.TrueParams['mus'] = np.random.rand(mixture_size, self.dimension)*(input_lim/2)
         tmp = np.identity(self.dimension)
         tmp = np.tile(tmp, (mixture_size, 1))
-        cov = tmp*input_lim/10
-        self.TrueParams['covs'] = cov.reshape(mixture_size, self.dimension**2)
+        cov_fake = tmp*input_lim/10
+        self.TrueParams['covs_fake'] = cov_fake.reshape(mixture_size, self.dimension**2)
         self.TrueParams['pi'] = np.random.dirichlet([3]*mixture_size)
         self.TrueParams['move'] = np.random.rand(mixture_size, self.dimension)*(input_lim/frame_num/2)
 
@@ -56,7 +56,7 @@ class TrueShade:
         t = frame
         xy = self.xy
         mus = self.TrueParams['mus'].reshape(self.mix, self.dimension)
-        covs = self.TrueParams['covs'].reshape(self.mix, self.dimension**2)
+        covs_fake = self.TrueParams['covs_fake'].reshape(self.mix, self.dimension**2)
         pi = self.TrueParams['pi']
         a, b = self.logistic_coefficient
         
@@ -64,10 +64,10 @@ class TrueShade:
         move = self.TrueParams['move'].reshape(self.mix, self.dimension)*t
         mus = mus + move
 
-        mixture = GenerateGMM(mus=mus, covs=covs)
+        mixture = GenerateGMM(mus=mus, covs_fake=covs_fake)
         q = []
         [q.append(MixtureValue(i, GMMmodel=mixture, pi = pi)) for i in xy]
-        q = np.array(q)
+        q = np.array(q) + np.random.normal(0, 0.01)
         g = sigmoid(a*q+b)
 
         return(np.array(g))

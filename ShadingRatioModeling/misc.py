@@ -19,12 +19,13 @@ def dnorm_Mixture(x, mu, sigma, pi):
 def sigmoid(z):
     return(1/(1+np.exp(-z)))
 
-def GenerateGMM(mus, covs):
+def GenerateGMM(mus, covs_fake):
     dim = mus.shape[1]
     norms = {}
     for i in range(mus.shape[0]):
         mu = mus[i, :]
-        cov = covs[i, :].reshape(dim, dim)
+        cov_fake = covs_fake[i, :].reshape(dim, dim)
+        cov = np.dot(cov_fake.T, cov_fake)
         norms[str(i)] = multivariate_normal(mean = mu, cov = cov)
     return(norms)
 

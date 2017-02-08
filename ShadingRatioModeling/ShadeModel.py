@@ -39,8 +39,8 @@ class ShadeModel:
         self.params['mus'] = np.random.rand(mixture_size, self.dimension)*(input_lim)
         tmp = np.identity(self.dimension)
         tmp = np.tile(tmp, (mixture_size, 1))
-        cov = tmp*input_lim/10
-        self.params['covs'] = cov.reshape(mixture_size, self.dimension**2)
+        cov_fake = tmp*input_lim/10
+        self.params['covs_fake'] = cov_fake.reshape(mixture_size, self.dimension**2)
         weight = np.ones(mixture_size)
         self.params['pi'] = weight/sum(weight)
         self.params['move'] = np.random.rand(mixture_size, self.dimension)*(input_lim/frame_num/5)
@@ -51,7 +51,7 @@ class ShadeModel:
         t = frame
         
         mus = self.params['mus'].reshape(self.mix, self.dimension)
-        covs = self.params['covs'].reshape(self.mix, self.dimension**2)
+        covs_fake = self.params['covs_fake'].reshape(self.mix, self.dimension**2)
         pi = self.params['pi']
         a, b = self.logistic_coefficient
         
@@ -59,7 +59,7 @@ class ShadeModel:
         move = self.params['move'].reshape(self.mix, self.dimension)*t
         mus = mus + move
         
-        mixture = GenerateGMM(mus = mus, covs = covs)
+        mixture = GenerateGMM(mus = mus, covs_fake = covs_fake)
         q = []
         [q.append(MixtureValue(i, GMMmodel=mixture, pi = pi)) for i in x]
         q = np.array(q)
