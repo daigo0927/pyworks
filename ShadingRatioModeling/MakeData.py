@@ -11,7 +11,7 @@ from mpl_toolkits.mplot3d.axes3d import Axes3D
 from misc import *
 import pdb
 
-class TrueShade:
+class GMMTrue:
     np.random.seed(1)
 
     # initialize variable
@@ -91,6 +91,78 @@ class TrueShade:
         elif(axtype == 'contour'): ax.contour3D(xgrid, ygrid, zgrid)
         elif(axtype == 'contourf'): ax.contourf3D(xgrid, ygrid, zgrid)
         plt.show()
+
+
+class EpnTrue:
+    np.random.seed(1)
+    
+    # constructer
+    def __init__(self,
+                 grid_size = np.array([50, 50]),
+                 input_lim = np.array([10, 10]),
+                 mixture_size = 3,
+                 frame_num = 5,
+                 logistic_coefficient = np.array([50, 0])
+                 ):
+
+        self.dimension = input_lim.shape[0] # normally 2
+        self.mix = mixture_size
+        self.grid = grid_size
+
+        xgrid = np.linspace(0, input_lim[0], grid_size[0])
+        ygrid = np.linspace(0, input_lim[1], grid_size[1])
+        xy = np.empty((0, self.dimension), float)
+        for x in xgrid:
+            for y in ygrid:
+                xy = np.append(xy, np.array([[x, y]]), axis = 0)
+                
+        self.xy = xy
+
+        self.frame = np.arange(frame_num)
+
+        self.Trueparams = {}
+        self.Trueparams['mus'] = \
+                    np.random.rand(mixture_size, self.dimension)*(input_lim/2)
+        tmp = np.identity(self.dimension)
+        tmp = np.tile(tmp, (mixture_size, 1))
+        covs = tmp*input_lim/10
+        self.Trueparams['covs'] = \
+                    covs.reshape(self.mix, self.dimension, self.dimension)
+        self.Trueparams['pi'] = np.random.dirichlet([3]*self.mix)
+        self.Trueparams['move'] = \
+                    np.random.rand(self.mix, self.dimension)*(input_lim/frame_num/2)
+
+        self.logistic_coefficient = logistic_coefficient
+
+    def GenerateFrame(self, frame):
+        f = frame
+        xy = self.xy
+        mus = self.Trueparams['mus']
+        covs = self.Trueparams['covs']
+        pi = self.Trueparams['pi']
+        a, b = self.logistic_coefficient
+
+        move = self.Trueparams['move'] * f
+        mus = mus + move
+
+        Epas = Epanechnikov2Dmix(mus = mus, covs = covs, pi = pi)
+
+        q = Epas.pdf(xy)
+        q_noised = q + np.random.normal(0, 0.01)
+        g = sigmoid(a * q_noised + b)
+
+        return g
+
+    def Generate(self):
+        Frames = np.array([self.GenerateFrame(frame = f) for f in self.frame])
+        return Frames
+        
+
+        
+        
+        
+        
+
 
 
         

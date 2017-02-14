@@ -41,6 +41,59 @@ def BregmanDivergence(f, g, a):
 
     allloss = lg1/a - f * lg2/a
     return(np.mean(allloss))
-    
-    
+
+class Epanechnikov2D:
+
+    # 2 variate Epanechnikov function
+    # f(x) = max(0, D-(x-mean)*cov*(x-mean.T))
+    # D : normalize constant
+    def __init__(self, mean, cov):
+        self.mean = mean
+        self.cov = cov
+
+        h = 1e-4
+        a = cov[0,0]
+        b = cov[0,1]
+        c = cov[1,1]
+        if(a == c):
+            c = c+h
+
+        theta = 1/2*np.arctan(2*b/(a-c))
+        tmp1 = \
+            c*np.cos(theta)**2 - 2*b*np.sin(theta)*np.cos(theta) + a*np.sin(theta)**2
+        tmp2 = \
+            c*np.sin(theta)**2 + 2*b*np.sin(theta)*np.cos(theta) + a*np.cos(theta)**2
+        det = a*c-b**2
+        self.D = np.sqrt(2 * np.sqrt(tmp1*tmp2)/np.pi/det)
+
+    def pdf(self, x):
+        mean = self.mean
+        cov = self.cov
+        D = self.D
+
+        tmp_value = D - np.dot((x-mean), np.linalg.solve(cov, (x-mean).T))
+        density_value = np.diag(tmp_value)
+        density_value.flags.writeable = True
+        density_value[density_value < 0] = 0
+        return(density_value)
+
+class Epanechnikov2Dmix:
+    def __init__(self, mus, covs, pi):
+        self.mus = mus
+        self.covs = covs
+        self.pi = pi
+        self.mix = pi.shape[0]
+
+        self.Epas = \
+        [Epanechnikov2D(mean = mu, cov = cov) for mu, cov in zip(self.mus, self.covs)]
+
+    def pdf(self, x):
+        q = np.array([Epa.pdf(x) for Epa in self.Epas])
+        q_weighted = q*self.pi.reshape(self.mix, 1)
+        q_sum = np.sum(q_weighted, axis = 0)
+
+        return(q_sum)
+
+        
+        
     
