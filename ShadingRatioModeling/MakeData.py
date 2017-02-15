@@ -45,7 +45,7 @@ class GMMTrue:
         self.TrueParams['mus'] = np.random.rand(mixture_size, self.dimension)*(input_lim/2)
         tmp = np.identity(self.dimension)
         tmp = np.tile(tmp, (mixture_size, 1))
-        cov_fake = tmp*input_lim/10
+        cov_fake = tmp*input_lim/3
         self.TrueParams['covs_fake'] = cov_fake.reshape(mixture_size, self.dimension**2)
         self.TrueParams['pi'] = np.random.dirichlet([3]*mixture_size)
         self.TrueParams['move'] = np.random.rand(mixture_size, self.dimension)*(input_lim/frame_num/2)
@@ -94,7 +94,7 @@ class GMMTrue:
 
 
 class EpnTrue:
-    np.random.seed(1)
+    np.random.seed(3)
     
     # constructer
     def __init__(self,
@@ -123,11 +123,10 @@ class EpnTrue:
         self.Trueparams = {}
         self.Trueparams['mus'] = \
                     np.random.rand(mixture_size, self.dimension)*(input_lim/2)
-        tmp = np.identity(self.dimension)
-        tmp = np.tile(tmp, (mixture_size, 1))
-        covs = tmp*input_lim/10
-        self.Trueparams['covs'] = \
-                    covs.reshape(self.mix, self.dimension, self.dimension)
+        tmps = np.random.rand(self.mix, self.dimension, self.dimension) - 0.5
+        tmps = np.identity(self.dimension) + tmps*input_lim/10
+        covs = np.array([np.dot(tmp.T, tmp) for tmp in tmps])
+        self.Trueparams['covs'] = covs
         self.Trueparams['pi'] = np.random.dirichlet([3]*self.mix)
         self.Trueparams['move'] = \
                     np.random.rand(self.mix, self.dimension)*(input_lim/frame_num/2)
@@ -157,6 +156,20 @@ class EpnTrue:
         Frames = np.array([self.GenerateFrame(frame = f) for f in self.frame])
         return Frames
         
+    def ShadePlot(self, frame=0, axtype='wireframe'):
+        fig = plt.figure()
+        ax = Axes3D(fig)
+        x = self.xy[:, 0]
+        y = self.xy[:, 1]
+        z = self.Generate()[frame]
+        xgrid = x.reshape(self.grid[0], self.grid[1])
+        ygrid = y.reshape(self.grid[0], self.grid[1])
+        zgrid = z.reshape(self.grid[0], self.grid[1])
+
+        if(axtype == 'wireframe'): ax.plot_wireframe(x, y, z)
+        elif(axtype == 'contour'): ax.contour3D(xgrid, ygrid, zgrid)
+        elif(axtype == 'contourf'): ax.contourf3D(xgrid, ygrid, zgrid)
+        plt.show()
 
         
         
