@@ -95,7 +95,6 @@ class uGMModel:
         elif(axtype == 'contour'): ax.contour3D(xgrid, ygrid, zgrid)
         elif(axtype == 'contourf'): ax.contourf3D(xgrid, ygrid, zgrid)
         plt.show()
-        
 
 class uEpaMixModel:
 
@@ -123,8 +122,8 @@ class uEpaMixModel:
         self.params = {}
         self.params['mus'] = \
                     np.random.rand(mixture_size, self.dimension)*(input_lim)
-        tmps = np.identity(self.dimension)*input_lim/10 \
-               for i in range(self.mix)
+        tmps = np.array([np.identity(self.dimension)*input_lim/10 \
+               for i in range(self.mix)])
         self.params['covs'] = tmps
         self.params['pi'] = np.random.dirichlet([3]*self.mix)
         move = np.random.rand(self.mix, self.dimension)-0.5
@@ -143,16 +142,16 @@ class uEpaMixModel:
         pi = self.params['pi']
 
         move = self.params['move']
-        mus_plus = (mus + move*frame) \
-                   for frame in self.frame
+        mus_plus = np.array([(mus + move*frame) \
+                   for frame in self.frame])
 
         a, b = self.logistic_coefficient
 
         self.Epas = [Epanechnikov2Dmix(mus = mus_p, covs= covs, pi=pi) \
                                        for mus_p in mus_plus]
 
-        q =  self.Epas[frame].pdf(xy) \
-             for frame in self.frame
+        q =  np.array([self.Epas[frame].pdf(xy) \
+             for frame in self.frame])
         g = sigmoid(a * q + b)
 
         return g
@@ -163,6 +162,10 @@ class uEpaMixModel:
         g = self.predict()
 
         diff_gf = g - f
+
+        pdf_each_value = np.array([self.Epas[frame].pdf_each_value \
+                                   for frame in self.frame]) # shape(frame, mix, grid)
+        pdf_each_mask = pdf_each_value>0
 
         # compute gradient
         EpaGrad = EpanechnikovGradient(diff_gf = diff_gf, \

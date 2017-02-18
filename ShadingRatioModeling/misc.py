@@ -91,7 +91,7 @@ class Epanechnikov2Dmix:
         self.pdf_value = None
 
     def pdf_each(self, x):
-        self.pdf_each_value = np.array([Epa.pdf(x) for Epa in self.Epas])
+        self.pdf_each_value = Epa.pdf(x) for Epa in self.Epas 
         return self.pdf_each_value # shape(mix, grid), unweighted
 
     def pdf(self, x):
