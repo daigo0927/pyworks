@@ -84,16 +84,46 @@ class Epanechnikov2Dmix:
         self.pi = pi
         self.mix = pi.shape[0]
 
-        self.Epas = \
-        [Epanechnikov2D(mean = mu, cov = cov) for mu, cov in zip(self.mus, self.covs)]
+        self.Epas = [Epanechnikov2D(mean = mu, cov = cov) \
+                     for mu, cov in zip(self.mus, self.covs)]
+
+        self.pdf_each_value = None
+        self.pdf_value = None
+
+    def pdf_each(self, x):
+        self.pdf_each_value = np.array([Epa.pdf(x) for Epa in self.Epas])
+        return self.pdf_each_value # shape(mix, grid), unweighted
 
     def pdf(self, x):
-        q = np.array([Epa.pdf(x) for Epa in self.Epas])
-        q_weighted = q*self.pi.reshape(self.mix, 1)
-        q_sum = np.sum(q_weighted, axis = 0)
+        q = self.pdf_each(x = x) # shape(mix, grid), unweighted
+        q_weighted = q*self.pi.reshape(self.mix, 1) # shape(mix, grid)
+        self.pdf_value = np.sum(q_weighted, axis = 0) # shape(1, grid)
 
-        return(q_sum)
+        return self.pdf_value
 
+class EpanechnikovGradient:
+    # compute gradient for epanechnikov function
+    # attribute : Epanechnikovs : time sorted Epanechnikov mixture list,
+    # ex ) self.Epas[f].Epas[i] : f:frame, i:index
+    #      self.Epas[f].Epas[i].pdf[x] : frame, index, space
+    #      self.Epas[f].pdf_value[x] : weighted sum density
+    #      self.Epas[f].pdf_each_value[mix, x] : unweighted Epa density array 
+    
+    def __init__(self, diff_gf, x, Epanechnikovs):
+        self.xy = x
+        self.Epas = Epanechnikovs
+        self.diff_gf = diff_gf
+
+    def piGrad(self):
+        grad = np.array([])
         
+    '''
+    def musGrad(self):
+
+    def covsGrad(self):
+
+    def moveGrad(self):
+    ''' 
+
         
     

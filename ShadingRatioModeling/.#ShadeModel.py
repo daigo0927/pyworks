@@ -1,0 +1,1 @@
+Daigo@Daigo-no-MacBook-Air.local.1232

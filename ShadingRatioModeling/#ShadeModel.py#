@@ -95,7 +95,6 @@ class uGMModel:
         elif(axtype == 'contour'): ax.contour3D(xgrid, ygrid, zgrid)
         elif(axtype == 'contourf'): ax.contourf3D(xgrid, ygrid, zgrid)
         plt.show()
-        
 
 class uEpaMixModel:
 
