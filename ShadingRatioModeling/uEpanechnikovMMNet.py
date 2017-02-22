@@ -59,6 +59,8 @@ class uEpaMMNet(object):
         self.layers['ReLU'] = ReLU()
         self.layers['Weight'] = Weight(pi = self.params['pi'])
 
+        self.a, self.b = logistic_coefficient
+
         self.lastLayer = SigmoidWithBregmanDiv(logistic_params = logistic_coefficient)
 
     def predict(self, x):
@@ -99,6 +101,32 @@ class uEpaMMNet(object):
         grads['pi'] = self.layers['Weight'].dpi
 
         return grads
+
+    def Plot(self, frame = np.arange(5), axtype = 'contourf'):
+        q = np.array([self.predict(x) \
+                      for x in self.xyt])
+
+        frame_mask = np.array([self.xyt[:, 2] == f \
+                               for f in self.frame])
+        x = self.xyt[frame_mask[0], 0]
+        y = self.xyt[frame_mask[0], 1]
+        Z = sigmoid(self.a * q + self.b)
+                                        
+        xgrid = x.reshape(self.grid[0], self.grid[1])
+        ygrid = y.reshape(self.grid[0], self.grid[1])
+        
+        for f in frame:
+            fig = plt.figure()
+            ax = Axes3D(fig)
+            z = Z[frame_mask[f]]
+            zgrid = z.reshape(self.grid[0], self.grid[1])
+            if(axtype == 'wireframe'): ax.plot_wireframe(x, y, z)
+            elif(axtype == 'contour'): ax.contour3D(xgrid, ygrid, zgrid)
+            elif(axtype == 'contourf'): ax.contourf3D(xgrid, ygrid, zgrid)
+            plt.show()
+
+        
+            
         
 
 class EpanechnikovLayer:
@@ -127,6 +155,8 @@ class EpanechnikovLayer:
         out = np.array([Epa.value(x = self.x) \
                         for Epa in Epas])
 
+        # pdb.set_trace()
+
         return out
 
     def backward(self, dout):
@@ -143,9 +173,9 @@ class EpanechnikovLayer:
                                        xmt.reshape(1, xmt.shape[0])) \
                                for xmt, d in zip(x_mu_ta, dout) ])
 
-        dcovs_inv += np.eye(2,2)
+        dcovs_inv -= np.eye(2,2)
 
-        self.dcovs = np.linalg.inv(dcovs_inv)
+        self.dcovs = np.linalg.inv(dcovs_inv) + np.eye(2,2)
 
         self.dmove = self.t * self.dmus
 
@@ -157,6 +187,7 @@ class ReLU:
         self.mask = None
 
     def forward(self, x):
+        # pdb.set_trace()
         self.mask = (x<=0)
         out = x.copy()
         out[self.mask] = 0
@@ -200,7 +231,7 @@ class SigmoidWithBregmanDiv:
 
     def forward(self, x, f):
         self.f = f
- p       
+        
         self.z = self.a * x + self.b
         U = 1/self.a * np.log(1 + np.exp(self.z))
         self.loss = U - f * x
