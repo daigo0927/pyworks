@@ -43,26 +43,45 @@ class uEpaMMNet(object):
         self.params = {}
         self.params['mus'] = \
                     np.random.rand(mixture_size, self.dimension)*(input_lim)
-        tmps = np.array([np.identity(self.dimension)*input_lim/5 \
+        tmps = np.array([np.identity(self.dimension)*input_lim/1 \
                          for i in range(self.mix)])
         self.params['covs'] = tmps
         self.params['pi'] = np.random.dirichlet([3]*self.mix)
         move = np.random.rand(self.mix, self.dimension)-0.5
         self.params['move'] = move * input_lim / 10
 
-        # layer construction
+        self.Epas = []
+
         self.layers = OrderedDict()
+        self.lastLayer = SigmoidWithBregmanDiv(logistic_params = logistic_coefficient)
+        
+        self.a, self.b = logistic_coefficient
+
+        
+    def DistributionUpdate(self):
+        
+        self.Epas = []
+        for f in self.frame:
+            mus = self.params['mus'] + self.params['move'] * f
+            Epas = [Epanechnikov2Dfunc(mean = mu, cov = cov) \
+                    for mu, cov in zip(mus, self.params['covs'])]
+
+            self.Epas.append(Epas)
+
+    def LayerBuild(self):
+
+        self.DistributionUpdate()
+        # layer construction
+
         self.layers['Epanechnikov'] = \
-                        EpanechnikovLayer(mus = self.params['mus'],
+                        EpanechnikovLayer(Epas = self.Epas,
+                                          mus = self.params['mus'],
                                           covs = self.params['covs'],
                                           move = self.params['move'])
         self.layers['ReLU'] = ReLU()
         self.layers['Weight'] = Weight(pi = self.params['pi'])
-
-        self.a, self.b = logistic_coefficient
-
-        self.lastLayer = SigmoidWithBregmanDiv(logistic_params = logistic_coefficient)
-
+        
+        
     def predict(self, x):
         for layer in self.layers.values():
             x = layer.forward(x)
@@ -131,7 +150,9 @@ class uEpaMMNet(object):
 
 class EpanechnikovLayer:
     
-    def __init__(self, mus, covs, move):
+    def __init__(self, Epas, mus, covs, move):
+        self.Epas = Epas
+
         self.mus = mus
         self.covs = covs
         self.move = move
@@ -146,16 +167,11 @@ class EpanechnikovLayer:
     def forward(self, x):
         self.x = x[:2]
         self.t = x[2]
-
-        mus = self.mus + self.move * self.t
-        
-        Epas = [Epanechnikov2Dfunc(mean = mu, cov = cov) \
-                for mu, cov in zip(mus, self.covs)]
-
-        out = np.array([Epa.value(x = self.x) \
-                        for Epa in Epas])
-
         # pdb.set_trace()
+        out = np.array([Epa.value(x = self.x) \
+                        for Epa in self.Epas[self.t.astype(np.int64)]])
+
+        
 
         return out
 
