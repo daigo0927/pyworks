@@ -13,9 +13,15 @@ class OuterRadiation:
                  date = np.array([2016,1,1,12,0])
                  # [year, month, day, hoor, second]
                  ):
+
+        self.rownames = list(map(str, latitude[::-1]))
+        self.colnames = list(map(str, longitude))
+        self.dp = pd.Panel(major_axis = self.rownames, minor_axis = self.colnames)
         
         self.latitude = np.radians(latitude)
         self.longitude = np.radians(longitude)
+
+        
 
         self.y, self.m, self.d, self.h, self.s = date
 
@@ -124,3 +130,7 @@ class OuterRadiation:
             index = [str(np.rad2deg(l)) for l in self.latitude[::-1]]
             df.index = index
             # pdb.set_trace()
+
+            self.dp[i] = df
+
+        return self.dp
