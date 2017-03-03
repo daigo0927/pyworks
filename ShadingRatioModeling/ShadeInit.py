@@ -23,6 +23,8 @@ class ShadeInit:
         return self.a, self.b
 
     def Samplize(self, sample_num = 1e+5):
+        self.ComputeLogisticCoef()
+        
         f = self.f + 1e-6
 
         # convert data value to pdf value
@@ -38,5 +40,18 @@ class ShadeInit:
 
         return xy_sample
 
-    def NormApprox(self):
+    def NormApprox(self, sample_num = 1e+5, n_comp = 10):
+
+        sample = self.Samplize(sample_num = sample_num)
+
+        gmm = GMM(n_components = n_comp, covariance_type = 'full')
+        gmm.fit(sample)
+
+        params = {}
+        params['mus'] = gmm.means_
+        params['covs'] = gmm.covars_
+        params['pi'] = gmm.weights_
+
+        return params
+        
         
