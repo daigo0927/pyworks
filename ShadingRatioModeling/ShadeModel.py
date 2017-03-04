@@ -2,8 +2,7 @@ import sys, os
 sys.path.append(os.pardir)
 import numpy as np
 import matplotlib.pyplot as plt
-import itertools
-from common.functions import sigmoid
+import seaborn as sns
 from common.gradient import numerical_gradient
 from PIL import Image
 from scipy.stats import multivariate_normal
@@ -26,8 +25,11 @@ class uGMModel:
         self.ygrid = np.arange(xy_lim[1])
         
         self.frame = np.arange(frame_num)
+        # ! set basis frame : (frame_num-1)/2 : center frame
+        self.std_frame = (frame_num-1)/2
 
         self.params = {}
+        # ! set basis frame : (frame_num-1)/2 : center frame
         self.params['mus'] = np.random.rand(self.mix, self.dimension)\
                              * xy_lim
         self.params['covs'] = np.array([np.identity(self.dimension) * xy_lim/5.
@@ -39,23 +41,18 @@ class uGMModel:
         self.logistic_coefficient = logistic_coefficient
 
         self.Norms = None
-        self.Norms_specific_frame = None
 
-    def predict_specific_frame(self, obj_frame):
-        self.Norms_specific_frame = Norm2Dmix(mus = self.params['mus'] \
-                                              + self.params['move'] * obj_frame,
-                                              covs = self.params['covs'],
-                                              pi = self.params['pi'])
+        self.q_each = None # each component density value
+        self.q = None # component mixture value
+        self.g = None # infered shade ratio
 
-        q = np.array([[self.Norms_specific_frame.pdf(x = np.array([x, y]))
-                       for x in self.xgrid]
-                      for y in self.ygrid])
+        self.lossvalue = None
 
-        return q
 
     def predict(self):
 
-        mus_plus = np.array([self.params['mus'] + self.params['move'] * f \
+        mus_plus = np.array([self.params['mus'] \
+                             + self.params['move'] * (f - self.std_frame) \
                              for f in self.frame])
         
         self.Norms = [Norm2Dmix(mus = mus_p,
@@ -63,38 +60,66 @@ class uGMModel:
                                 pi = self.params['pi'])
                       for mus_p in mus_plus]
 
-        q = np.array([[[self.Norms[f].pdf(x = np.array([x, y]))
-                        for x in self.xgrid]
-                       for y in self.ygrid]
-                      for f in self.frame])
-
-        return q
-
-    def loss_specific_frame(self, f, obj_frame):
-        q = self.predict_specific_frame(obj_frame = obj_frame)
+        self.q_each = np.array([[[self.Norms[f].pdf_each(x = np.array([x, y]))
+                                  for x in self.xgrid]
+                                 for y in self.ygrid]
+                                for f in self.frame])
+        
+        self.q = np.sum(self.q_each \
+                        * self.params['pi'].reshape(1,1,1,self.mix),
+                        axis = 3)
 
         a, b = self.logistic_coefficient
+        z = a * self.q + b
+        self.g = sigmoid(z)
+        
 
-        z = a * q + b
-        U_q = 1/a * np.log(1 + np.exp(z))
-
-        loss = U_q - f[obj_frame] * q
-
-        return loss
-    
-    def loss(self, f):
-        q = self.predict()
+    def loss(self, f): # f : data value (not frame)
+        self.predict()
 
         a ,b = self.logistic_coefficient
+        z = a * self.q + b
+        U_q = 1/a * np.log(1 + np.exp(z)) # U function : integrated logistic sigmoid
 
-        z = a * q + b
-        U_q = 1/a * np.log(1 + np.exp(z))
+        self.lossvalue = U_q - f * self.q
 
-        loss = U_q - f * q
+    def gradient_move(self, f):
+        self.loss(f = f)
 
-        return loss
+        mus_plus = np.array([self.params['mus'] \
+                             + self.params['move'] * (frm - self.std_frame) \
+                             for frm in self.frame])
 
-    
+        # shape(frame, ygrid, xgrid, mix, 2)
+        grad_move = np.array([[[ self.params['pi'].reshape(self.mix, 1) \
+                                 * (self.g[frm, y, x] - f[frm, y, x]) \
+                                 * self.q_each[frm, y, x, :].reshape(self.mix, 1) \
+                                 * (frm - self.std_frame) \
+                                 * np.linalg.solve(self.params['covs'],
+                                                   (np.array([x, y]) - mus_plus[frm])) \
+                                 for x in self.xgrid]
+                               for y in self.ygrid]
+                              for frm in self.frame])
+        return grad_move
+
+    def modelplot(self, update = False):
+        if(update == True):
+            self.predict()
+
+        plt.figure(figsize = (10, 3.5*(1+self.frame.size)))
+        
+        for frm in self.frame:
+            
+            plt.subplot(self.frame.size+1, 2, frm*2+1)
+            plt.title('approxed shade ratio')
+            sns.heatmap(self.g[frm], annot = False, cmap = 'YlGnBu_r',
+                        vmin = 0, vmax = 1)
+
+            plt.subplot(self.frame.size+1, 2, frm*2+2)
+            plt.title('approxed probability density')
+            sns.heatmap(self.q[frm], annot = False, cmap = 'YlGnBu_r')
+
+        sns.plt.show()
 
 
 class uEpaMixModel(object):
