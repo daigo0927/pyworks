@@ -13,22 +13,33 @@ class ShadeTrain:
 
     def __init__(self,
                  data_batch,
+                 outer_drop = 5,
                  LearningRate = 100.,
                  iterate = 50,
                  mixture = 20):
 
         self.f = data_batch
+
+        # drop outer area for catching large scale cloud move
+        self.outer_drop = outer_drop 
         
         self.frame_len = data_batch.shape[0]
         self.frame = np.arange(self.frame_len)
 
         self.std_frame = np.int((self.frame_len+1)/2)
-    
-        self.y_len = data_batch.shape[1]
+
+        # drop outer area
+        self.y_len = data_batch.shape[1] - 2*self.outer_drop
         self.ygrid = np.arange(self.y_len)
-    
-        self.x_len = data_batch.shape[2]
+
+        # drop outer area
+        self.x_len = data_batch.shape[2] - 2*self.outer_drop
         self.xgrid = np.arange(self.x_len)
+
+        # objective area (outer area dropped)
+        self.f_objective = data_batch[:,
+                                      self.outer_drop : self.outer_drop+self.y_len,
+                                      self.outer_drop : self.outer_drop+self.x_len]
 
         self.lr = LearningRate
 
@@ -51,9 +62,10 @@ class ShadeTrain:
         # mean, cov, and pi
         self.initmodel = ShadeInit(obj_data = self.f[self.std_frame])
         
-        std_params =  self.initmodel.NormApprox(n_comp = self.mix)
+        std_params =  self.initmodel.NormApprox(n_comp = self.mix,
+                                                outerpolate = 0)
 
-        print('initial learning finished', end='\n')
+        print('initial learning finished')
         
         self.a = self.initmodel.a
         self.b = self.initmodel.b
@@ -64,13 +76,14 @@ class ShadeTrain:
                               frame_num = self.frame_len,
                               logistic_coefficient = np.array([self.a, self.b]))
 
-        self.model.params['mus'] = std_params['mus']
+        self.model.params['mus'] = std_params['mus'] - self.outer_drop
         self.model.params['covs'] = std_params['covs']
         self.model.params['pi'] = std_params['pi']
 
         for i in tqdm(range(self.it)):
-            
-            grad_tmp = self.model.gradient_move(f = self.f)
+
+            # shape(frame, y, x, 2)
+            grad_tmp = self.model.gradient_move(f = self.f_objective) 
             grad_move = np.mean(grad_tmp, axis = (0, 1, 2))
             self.model.params['move'] -= self.lr * grad_move
     
@@ -90,7 +103,7 @@ class ShadeTrain:
             
             plt.subplot(self.frame_len, 2, frm*2+1)
             plt.title('original shade ratio')
-            sns.heatmap(self.f[frm], annot = False, cmap = 'YlGnBu_r',
+            sns.heatmap(self.f_objective[frm], annot = False, cmap = 'YlGnBu_r',
                         vmin = 0, vmax = 1)
 
             plt.subplot(self.frame_len, 2, frm*2+2)
@@ -99,4 +112,19 @@ class ShadeTrain:
                         vmin = 0, vmax = 1)
 
         sns.plt.show()
+
+    def save(self, path):
+        
+        with open(path, 'wb') as f:
+            pickle.dump(self.__dict__, f)    
+    
+    def load(self, path):
+
+        with open(path, 'rb') as f:
+            contents = pickle.load(f)
+
+        for key in contents.keys():
+            self.__dict__[key] = contents[key]
+
+        
         

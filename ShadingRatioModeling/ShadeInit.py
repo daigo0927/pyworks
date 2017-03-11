@@ -24,7 +24,7 @@ class ShadeInit:
         self.p = None
         self.pouter = None
 
-    def ComputeLogisticCoef(self, outerpolate = 3):
+    def ComputeLogisticCoef(self, outerpolate = 0):
         fmin = np.min(self.f)
 
         self.b = np.log(fmin/(1 - fmin))
@@ -43,7 +43,7 @@ class ShadeInit:
 
         return self.a, self.b
 
-    def Samplize(self, sample_num = 1e+5, outerpolate = 3):
+    def Samplize(self, sample_num = 1e+5, outerpolate = 0):
         self.ComputeLogisticCoef(outerpolate = outerpolate)
 
         f = self.fouter + 1e-6
@@ -63,9 +63,11 @@ class ShadeInit:
 
         return xy_sample
 
-    def NormApprox(self, sample_num = 1e+5, n_comp = 10):
+    def NormApprox(self, sample_num = 1e+5, n_comp = 10,
+                   outerpolate = 0):
 
-        sample = self.Samplize(sample_num = sample_num)
+        sample = self.Samplize(sample_num = sample_num,
+                               outerpolate = outerpolate)
 
         gmm = GMM(n_components = n_comp, covariance_type = 'full')
         gmm.fit(sample)

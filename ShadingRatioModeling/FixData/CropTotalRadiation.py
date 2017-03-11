@@ -25,8 +25,10 @@ class CropTotalRadiation:
         colindex = (longitude - LonStart)/0.01  #(1973., 1974., 1975.)
 
         # crop target area
-        self.rowindex = np.array(rowindex[::-1]+0.1, dtype = int) # (1188, 1189, 1190)
-        self.colindex = np.array(colindex+0.1, dtype = int) # (1973, 1974, 1975)
+        self.rowindex = np.array(rowindex[::-1]+0.1, dtype = int)
+        # (1188, 1189, 1190)
+        self.colindex = np.array(colindex+0.1, dtype = int)
+        # (1973, 1974, 1975)
 
         # crop result array
         self.Result = np.empty((0, len(self.rowindex), len(self.colindex)), float)
