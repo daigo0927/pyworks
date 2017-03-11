@@ -48,9 +48,10 @@ class ShadeSystem:
         
         self.FitResult = list(pool.map(train, self.data_batches))
 
-    def TemporalInterpolate(self, finess = 15)
-    # finess : temporal grid
-    # 15 : original each 2.5 minutes -> generate each 10 seconds
+    def TemporalInterpolate(self, finess = 15):
+        # finess : temporal grid
+        # 15 : original each 2.5 minutes -> generate each 10 seconds
+        
     
     
 def train(data_batch):
