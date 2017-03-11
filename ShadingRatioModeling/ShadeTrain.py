@@ -5,11 +5,68 @@ import pickle
 import pdb
 
 from tqdm import tqdm
+from multiprocessing import Pool
+from multiprocessing import Process
 
 from ShadeInit import ShadeInit
 from ShadeModel import uGMModel
+    
 
-class ShadeTrain:
+class ShadeSystem:
+    
+    def __init__(self,
+                 data,
+                 batch_size = 3,
+                 stride = 1):
+
+        self.batch_size = batch_size
+        self.stride = stride
+
+        self.data = data
+        self.data_len = data.shape[0]
+
+        try:
+            if (self.data_len - self.batch_size) % self.stride != 0:
+                raise ValueError('batchsize and stride must be set appropriately')
+            elif (self.batch_size - self.stride) <= 1:
+                raise ValueError('you should change the batchsize or stride for good TSR')
+        except ValueError as e:
+            print(e)
+            
+        # split the data for training
+        self.data_batches = [data[i:i+self.batch_size]
+                             for i in np.arange(start = 0,
+                                                stop = self.data_len \
+                                                - self.batch_size + 1,
+                                                step = self.stride)]
+
+        self.FitResult = None
+
+    def fit(self):
+        core_num = np.int(input('input core number : '))
+        pool = Pool(core_num)
+        
+        self.FitResult = list(pool.map(train, self.data_batches))
+
+    def TemporalInterpolate(self, finess = 15)
+    # finess : temporal grid
+    # 15 : original each 2.5 minutes -> generate each 10 seconds
+    
+    
+def train(data_batch):
+
+    trainer = Trainer(data_batch = data_batch,
+                      outer_drop = 5,
+                      LearningRate = 100,
+                      iterate = 50,
+                      mixture = 20)
+    
+    trainer.train(plot = False)
+
+    return trainer
+
+
+class Trainer:
 
     def __init__(self,
                  data_batch,
@@ -56,7 +113,7 @@ class ShadeTrain:
         self.loss = []
         self.it = iterate
 
-    def train(self):
+    def train(self, plot = True):
 
         # at first, learn standard frame
         # mean, cov, and pi
@@ -80,17 +137,18 @@ class ShadeTrain:
         self.model.params['covs'] = std_params['covs']
         self.model.params['pi'] = std_params['pi']
 
-        for i in tqdm(range(self.it)):
-
-            # shape(frame, y, x, 2)
-            grad_tmp = self.model.gradient_move(f = self.f_objective) 
-            grad_move = np.mean(grad_tmp, axis = (0, 1, 2))
-            self.model.params['move'] -= self.lr * grad_move
+        if plot:
+            for i in tqdm(range(self.it)):
+                
+                # shape(frame, y, x, 2)
+                grad_tmp = self.model.gradient_move(f = self.f_objective) 
+                grad_move = np.mean(grad_tmp, axis = (0, 1, 2))
+                self.model.params['move'] -= self.lr * grad_move
     
-            self.loss.append(np.mean(self.model.lossvalue))
+                self.loss.append(np.mean(self.model.lossvalue))
         
-        plt.plot(range(len(self.loss)), self.loss)
-        plt.show()
+                plt.plot(range(len(self.loss)), self.loss)
+                plt.show()
 
     def plot(self, update = False):
         
