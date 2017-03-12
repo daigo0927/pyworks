@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import pickle
 import pdb
+import itertools as itr
 
 from tqdm import tqdm
 from multiprocessing import Pool
@@ -13,6 +14,7 @@ from multiprocessing import Process
 from ShadeInit import ShadeInit
 from ShadeModel import uGMModel
 from misc import Time2Strings
+from MpHelper import tomap
 
 
 class ShadeSystem:
@@ -53,26 +55,19 @@ class ShadeSystem:
         
         self.FitResult = list(pool.map(train, self.data_batches))
 
+
     def TemporalInterpolate(self, finess = 15):
-        # finess : temporal grid
-        # 15 : original each 2.5 minutes -> generate each 10 seconds
-        def interp(i):
-            premodel = self.FitResult[i].model
-            postmodel = self.FitResult[i+1].model
-
-            synthesis = np.array([premodel.GenerateFrame(f = premodel.std_frame+fin) \
-                                  * (1 - fin) \
-                                  + postmodel.GenerateFrame(f = fin) \
-                                  * fin
-                                  for fin in (range(finess)/finess)])
-
-            return synthesis
         
         core_num = np.int(input('input core number : '))
         pool = Pool(core_num)
 
-        self.Interpolated = np.array([pool.map(interp,
-                                               range(len(self.FitResult)-1))])
+        modelpairs = [[self.FitResult[i].model, self.FitResult[i+1].model]
+                      for i in range(len(self.FitResult) - 1)]
+
+        # shape(pair, finess, ygrid, xgrid)
+        self.Interpolated = np.array(pool.map(interp, modelpairs))
+
+        # shape(pair*finess, ygid, xgrid)
         self.Interpolated = self.Interpolated.reshape(self.Interpolated.shape[0] \
                                                       * self.Interpolated.shape[1],
                                                       self.Interpolated.shape[2],
@@ -86,8 +81,24 @@ class ShadeSystem:
                                 for fin in (range(finess)/finess)])
         lastframes = np.array([lastmodel.GenerateFrame(f = fin)
                                for fin in (range(finess)/finess)])
-        
+
+
+
+def interp(modelpair):
     
+    finess = 15
+    premodel = modelpair[0]
+    postmodel = modelpair[1]
+
+    synthesis = np.array([premodel.GenerateFrame(f = premodel.std_frame+fin) \
+                          * (1 - fin) \
+                          + postmodel.GenerateFrame(f = fin) \
+                          * fin
+                          for fin in (np.arange(finess)/finess)])
+    
+    return synthesis        
+    
+        
 def train(data_batch):
 
     trainer = Trainer(data_batch = data_batch,
