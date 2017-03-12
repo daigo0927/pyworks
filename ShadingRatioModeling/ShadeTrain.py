@@ -1,3 +1,5 @@
+# coding : utf-8
+
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -10,7 +12,8 @@ from multiprocessing import Process
 
 from ShadeInit import ShadeInit
 from ShadeModel import uGMModel
-    
+from misc import Time2Strings
+
 
 class ShadeSystem:
     
@@ -42,6 +45,8 @@ class ShadeSystem:
 
         self.FitResult = None
 
+        self.Interpolated = None
+
     def fit(self):
         core_num = np.int(input('input core number : '))
         pool = Pool(core_num)
@@ -51,8 +56,37 @@ class ShadeSystem:
     def TemporalInterpolate(self, finess = 15):
         # finess : temporal grid
         # 15 : original each 2.5 minutes -> generate each 10 seconds
+        def interp(i):
+            premodel = self.FitResult[i].model
+            postmodel = self.FitResult[i+1].model
+
+            synthesis = np.array([premodel.GenerateFrame(f = premodel.std_frame+fin) \
+                                  * (1 - fin) \
+                                  + postmodel.GenerateFrame(f = fin) \
+                                  * fin
+                                  for fin in (range(finess)/finess)])
+
+            return synthesis
         
-    
+        core_num = np.int(input('input core number : '))
+        pool = Pool(core_num)
+
+        self.Interpolated = np.array([pool.map(interp,
+                                               range(len(self.FitResult)-1))])
+        self.Interpolated = self.Interpolated.reshape(self.Interpolated.shape[0] \
+                                                      * self.Interpolated.shape[1],
+                                                      self.Interpolated.shape[2],
+                                                      self.Interpolated.shape[3])
+
+        pdb.set_trace()
+
+        firstmodel = self.FitResult[0].model
+        lastmodel = self.FitResult[-1].model
+        firstframes = np.array([firstmodel.GenerateFrame(f = fin)
+                                for fin in (range(finess)/finess)])
+        lastframes = np.array([lastmodel.GenerateFrame(f = fin)
+                               for fin in (range(finess)/finess)])
+        
     
 def train(data_batch):
 
@@ -138,18 +172,19 @@ class Trainer:
         self.model.params['covs'] = std_params['covs']
         self.model.params['pi'] = std_params['pi']
 
-        if plot:
-            for i in tqdm(range(self.it)):
-                
-                # shape(frame, y, x, 2)
-                grad_tmp = self.model.gradient_move(f = self.f_objective) 
-                grad_move = np.mean(grad_tmp, axis = (0, 1, 2))
-                self.model.params['move'] -= self.lr * grad_move
-    
-                self.loss.append(np.mean(self.model.lossvalue))
         
-                plt.plot(range(len(self.loss)), self.loss)
-                plt.show()
+        for i in tqdm(range(self.it)):
+            
+            # shape(frame, y, x, 2)
+            grad_tmp = self.model.gradient_move(f = self.f_objective) 
+            grad_move = np.mean(grad_tmp, axis = (0, 1, 2))
+            self.model.params['move'] -= self.lr * grad_move
+            
+            self.loss.append(np.mean(self.model.lossvalue))
+
+        if plot:
+            plt.plot(range(len(self.loss)), self.loss)
+            plt.show()
 
     def plot(self, update = False):
         
