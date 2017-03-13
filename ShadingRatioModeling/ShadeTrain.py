@@ -14,7 +14,7 @@ from multiprocessing import Process
 from ShadeInit import ShadeInit
 from ShadeModel import uGMModel
 from misc import Time2Strings
-from MpHelper import tomap
+
 
 
 class ShadeSystem:
@@ -47,7 +47,7 @@ class ShadeSystem:
 
         self.FitResult = None
 
-        self.Interpolated = None
+        self.CompleteFrames = None
 
     def fit(self):
         core_num = np.int(input('input core number : '))
@@ -65,22 +65,50 @@ class ShadeSystem:
                       for i in range(len(self.FitResult) - 1)]
 
         # shape(pair, finess, ygrid, xgrid)
-        self.Interpolated = np.array(pool.map(interp, modelpairs))
+        middleframes = np.array(pool.map(interp, modelpairs))
 
         # shape(pair*finess, ygid, xgrid)
-        self.Interpolated = self.Interpolated.reshape(self.Interpolated.shape[0] \
-                                                      * self.Interpolated.shape[1],
-                                                      self.Interpolated.shape[2],
-                                                      self.Interpolated.shape[3])
-
-        pdb.set_trace()
+        middleframes = middleframes.reshape(middleframes.shape[0] \
+                                            * middleframes.shape[1],
+                                            middleframes.shape[2],
+                                            middleframes.shape[3])
 
         firstmodel = self.FitResult[0].model
         lastmodel = self.FitResult[-1].model
         firstframes = np.array([firstmodel.GenerateFrame(f = fin)
-                                for fin in (range(finess)/finess)])
+                                for fin in (np.arange(finess)/finess)])
         lastframes = np.array([lastmodel.GenerateFrame(f = fin)
-                               for fin in (range(finess)/finess)])
+                               for fin in (np.arange(finess+1)/finess)])
+
+        self.CompleteFrames = np.concatenate((firstframes,
+                                              middleframes,
+                                              lastframes),
+                                             axis = 0)
+        # pdb.set_trace()
+
+    def SaveInterp(self, path):
+        
+        start_date = input('input start date ex\) 2016/1/1/12/0/0 : ')
+        end_date = input('input end date ex\) 2016/1/1/18/0/0 : ')
+        
+        s_year, s_month, s_day, s_hour, s_minute, s_second \
+            = list(map(int, start_date.split('/')))
+        e_year, e_month, e_day, e_hour, e_minute, e_second \
+            = list(map(int, end_date.split('/')))
+
+        try:
+            if not (s_year == e_year and s_month == e_month and s_day == e_day):
+                raise ValueError('can\'t perform across dates')
+        except ValueError as e:
+            print(e)
+
+        
+
+        
+            
+            
+
+        
 
 
 
