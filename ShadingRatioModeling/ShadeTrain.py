@@ -1,5 +1,6 @@
 # coding : utf-8
 
+import sys, os
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -101,6 +102,7 @@ class ShadeSystem:
                 raise ValueError('can\'t perform across dates')
         except ValueError as e:
             print(e)
+            sys.exit()
 
         TimeStrList = Time2Strings(year = s_year,
                                    month = s_month,
@@ -118,16 +120,14 @@ class ShadeSystem:
                             TimeStrList))
 
         # pdb.set_trace()
+
+        frame_and_path = [[frame, pth]
+                          for frame, pth in zip(self.CompleteFrames, PathList)]
         
         core_num = np.int(input('input core number : '))
         pool = Pool(core_num)
 
-
-        for data, path in zip(self.CompleteFrames, PathList):
-            SaveImage(data = data, path = path)
-        
-        # pool.map(SaveImage, zip(self.CompleteFrames, PathList))
-
+        pool.map(SaveImage, frame_and_path)
         
 
 
@@ -145,9 +145,11 @@ def interp(modelpair):
     
     return synthesis
 
-def SaveImage(data, path):
 
-    # zip (data, path)
+def SaveImage(data_and_path):
+    
+    # (data, path)
+    data, path = data_and_path
     # path : path/to/---.png
     date = path.split('/')[-1].split('.')[0] # extract date : '---'
 
