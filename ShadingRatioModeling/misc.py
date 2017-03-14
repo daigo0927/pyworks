@@ -40,7 +40,8 @@ def Time2Str(year = 2016,
              day = 1,
              hour = 12,
              minute = 0,
-             second = 0):
+             second = 0,
+             sep = '-'):
 
     year_str = str(year)
 
@@ -69,18 +70,21 @@ def Time2Str(year = 2016,
     else:
         s_str = str(second)
 
-    return (year_str + month_str + day_str + h_str + m_str + s_str)
+    timestr = sep.join([year_str, month_str, h_str, m_str, s_str])
+
+    return timestr
 
 def Time2Strings(year = 2016,
-               month = 8,
-               day = 20,
-               start_hour = 9,
-               start_minute = 0,
-               start_second = 0,
-               end_hour = 12,
-               end_minute = 0,
-               end_second = 0,
-               grid_second = 10):
+                 month = 8,
+                 day = 20,
+                 start_hour = 9,
+                 start_minute = 0,
+                 start_second = 0,
+                 end_hour = 12,
+                 end_minute = 0,
+                 end_second = 0,
+                 grid_second = 10,
+                 sep = '-'):
 
     h = start_hour
     m = start_minute
@@ -95,7 +99,8 @@ def Time2Strings(year = 2016,
                               day = day,
                               hour = h,
                               minute = m,
-                              second = s)
+                              second = s,
+                              sep = sep)
         
         TimeStrList.append(timestring)
         

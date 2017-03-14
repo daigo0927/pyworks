@@ -77,7 +77,7 @@ class ShadeSystem:
         lastmodel = self.FitResult[-1].model
         firstframes = np.array([firstmodel.GenerateFrame(f = fin)
                                 for fin in (np.arange(finess)/finess)])
-        lastframes = np.array([lastmodel.GenerateFrame(f = fin)
+        lastframes = np.array([lastmodel.GenerateFrame(f = lastmodel.std_frame + fin)
                                for fin in (np.arange(finess+1)/finess)])
 
         self.CompleteFrames = np.concatenate((firstframes,
@@ -108,7 +108,7 @@ class ShadeSystem:
                                    start_hour = s_hour,
                                    start_minute = s_minute,
                                    start_second = s_second,
-                                   end_hour = s_hour,
+                                   end_hour = e_hour,
                                    end_minute = e_minute,
                                    end_second = e_second,
                                    grid_second = 10,
@@ -117,12 +117,16 @@ class ShadeSystem:
         PathList = list(map(lambda timestr: path + timestr + '.png',
                             TimeStrList))
 
-        pdb.set_trace()
+        # pdb.set_trace()
         
         core_num = np.int(input('input core number : '))
         pool = Pool(core_num)
 
-        pool.map(SaveImage, zip(self.CompleteFrames, PathList))
+
+        for data, path in zip(self.CompleteFrames, PathList):
+            SaveImage(data = data, path = path)
+        
+        # pool.map(SaveImage, zip(self.CompleteFrames, PathList))
 
         
 
@@ -141,14 +145,13 @@ def interp(modelpair):
     
     return synthesis
 
-def SaveImage(Data_and_path):
+def SaveImage(data, path):
 
     # zip (data, path)
     # path : path/to/---.png
-    data, path = Data_and_path
     date = path.split('/')[-1].split('.')[0] # extract date : '---'
 
-    sns.title(date)
+    sns.plt.title(date)
     sns.heatmap(data, vmin = 0, vmax = 1,
                 cmap = 'YlGnBu_r', annot = False)
     sns.plt.savefig(path)

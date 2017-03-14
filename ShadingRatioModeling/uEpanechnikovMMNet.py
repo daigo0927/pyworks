@@ -2,6 +2,7 @@ import sys, os
 sys.path.append(os.pardir)
 import numpy as np
 import matplotlib.pyplot as plt
+import seaborn as sns
 import itertools
 from common.functions import sigmoid
 from common.gradient import numerical_gradient
@@ -29,11 +30,13 @@ class uEpaMMNet(object):
 
         self.frame = np.arange(frame_num)
 
-        xgrid = np.linspace(0, input_lim[0], grid_size[0])
-        ygrid = np.linspace(0, input_lim[1], grid_size[1])
+        self.xgrid = np.linspace(0, input_lim[0]-input_lim[0]/grid_size[0],
+                                 grid_size[0])
+        self.ygrid = np.linspace(0, input_lim[1]-input_lim[1]/grid_size[1],
+                                 grid_size[1])
         xyt = np.empty((0, self.dimension+1), float)
-        for x in xgrid:
-            for y in ygrid:
+        for x in self.xgrid:
+            for y in self.ygrid:
                 for f in self.frame:
                     xyt = np.append(xyt, np.array([[x, y, f]]), axis = 0)        
         self.xyt = xyt
@@ -43,7 +46,7 @@ class uEpaMMNet(object):
         self.params = {}
         self.params['mus'] = \
                     np.random.rand(mixture_size, self.dimension)*(input_lim)
-        tmps = np.array([np.identity(self.dimension)*input_lim/1 \
+        tmps = np.array([np.identity(self.dimension)*input_lim/0.01 \
                          for i in range(self.mix)])
         self.params['covs'] = tmps
         self.params['pi'] = np.random.dirichlet([3]*self.mix)
@@ -122,6 +125,8 @@ class uEpaMMNet(object):
         return grads
 
     def Plot(self, frame = np.arange(5), axtype = 'contourf'):
+        self.LayerBuild()
+        
         q = np.array([self.predict(x) \
                       for x in self.xyt])
 
@@ -133,6 +138,8 @@ class uEpaMMNet(object):
                                         
         xgrid = x.reshape(self.grid[0], self.grid[1])
         ygrid = y.reshape(self.grid[0], self.grid[1])
+
+        sns.set_palette('YlGnBu_r')
         
         for f in frame:
             fig = plt.figure()
@@ -143,6 +150,29 @@ class uEpaMMNet(object):
             elif(axtype == 'contour'): ax.contour3D(xgrid, ygrid, zgrid)
             elif(axtype == 'contourf'): ax.contourf3D(xgrid, ygrid, zgrid)
             plt.show()
+
+    def CompletePlot(self, time = 0,
+                     save = False, start_time = 9,
+                     path = '~/Data/ShadeRatio/Machida3h/tmp'):
+        xyt = np.empty((0, self.dimension+1), float)
+        for x in self.xgrid:
+            for y in self.ygrid:
+                xyt = np.append(xyt, np.array([[x, y, time]]), axis = 0)
+
+        self.LayerBuild()
+
+        q = np.array([self.predict(x) \
+                      for x in xyt])
+        z = sigmoid(self.a * q + self.b)
+        zgrid = z.reshape(self.grid[0], self.grid[1])
+
+        sns.heatmap(zgrid, annot = False,
+                    vmin = 0, vmax = 1,
+                    fmt = 'g', cmap = 'YlGnBu_r')
+        if(save == True):
+            sns.plt.savefig(path + str(start_time) + str(2.5*time) + '.png')
+            
+        sns.plt.show()
 
         
             

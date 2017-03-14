@@ -72,6 +72,27 @@ class uGMModel:
         a, b = self.logistic_coefficient
         z = a * self.q + b
         self.g = sigmoid(z)
+
+    def GenerateFrame(self, f):
+
+        mus_p = self.params['mus'] \
+                + self.params['move'] * (f - self.std_frame)
+
+        Norm = Norm2Dmix(mus = mus_p,
+                         covs = self.params['covs'],
+                         pi = self.params['pi'])
+
+        q = np.array([[Norm.pdf(x = np.array([x, y]))
+                       for x in self.xgrid]
+                      for y in self.ygrid])
+
+        a, b = self.logistic_coefficient
+        z = a * q + b
+        g = sigmoid(z)
+
+        # pdb.set_trace()
+
+        return g
         
 
     def loss(self, f): # f : data value (not frame)
