@@ -88,13 +88,13 @@ class ShadeSystem:
 
     def SaveInterp(self, path):
         
-        start_date = input('input start date ex\) 2016/1/1/12/0/0 : ')
-        end_date = input('input end date ex\) 2016/1/1/18/0/0 : ')
+        start_date = input('input start date ex ) 2016-1-1-12-0-0 : ')
+        end_date = input('input end date ex ) 2016-1-1-18-0-0 : ')
         
         s_year, s_month, s_day, s_hour, s_minute, s_second \
-            = list(map(int, start_date.split('/')))
+            = list(map(int, start_date.split('-')))
         e_year, e_month, e_day, e_hour, e_minute, e_second \
-            = list(map(int, end_date.split('/')))
+            = list(map(int, end_date.split('-')))
 
         try:
             if not (s_year == e_year and s_month == e_month and s_day == e_day):
@@ -102,14 +102,29 @@ class ShadeSystem:
         except ValueError as e:
             print(e)
 
+        TimeStrList = Time2Strings(year = s_year,
+                                   month = s_month,
+                                   day = s_day,
+                                   start_hour = s_hour,
+                                   start_minute = s_minute,
+                                   start_second = s_second,
+                                   end_hour = s_hour,
+                                   end_minute = e_minute,
+                                   end_second = e_second,
+                                   grid_second = 10,
+                                   sep = '-')
+
+        PathList = list(map(lambda timestr: path + timestr + '.png',
+                            TimeStrList))
+
+        pdb.set_trace()
         
+        core_num = np.int(input('input core number : '))
+        pool = Pool(core_num)
+
+        pool.map(SaveImage, zip(self.CompleteFrames, PathList))
 
         
-            
-            
-
-        
-
 
 
 def interp(modelpair):
@@ -124,7 +139,22 @@ def interp(modelpair):
                           * fin
                           for fin in (np.arange(finess)/finess)])
     
-    return synthesis        
+    return synthesis
+
+def SaveImage(Data_and_path):
+
+    # zip (data, path)
+    # path : path/to/---.png
+    data, path = Data_and_path
+    date = path.split('/')[-1].split('.')[0] # extract date : '---'
+
+    sns.title(date)
+    sns.heatmap(data, vmin = 0, vmax = 1,
+                cmap = 'YlGnBu_r', annot = False)
+    sns.plt.savefig(path)
+    sns.plt.close()
+    
+    
     
         
 def train(data_batch):
