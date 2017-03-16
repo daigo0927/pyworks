@@ -4,7 +4,7 @@ import json
 class SendMessage:
 
     def __init__(self,
-                 webhook = 'https://hooks.slack.com/services/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',
+                 webhook = 'webhook',
                  message = 'hello world!'):
         self.webhook = webhook
         self.message = message
