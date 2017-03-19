@@ -15,6 +15,4 @@ class SendMessage:
 
         requests.post(self.webhook, data=json.dumps(message))
     
-
-    
     
