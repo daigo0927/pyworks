@@ -70,7 +70,8 @@ def Time2Str(year = 2016,
     else:
         s_str = str(second)
 
-    timestr = sep.join([year_str, month_str, h_str, m_str, s_str])
+    timestr = sep.join([year_str, month_str, day_str,
+                        h_str, m_str, s_str])
 
     return timestr
 

@@ -119,7 +119,6 @@ class ShadeSystem:
         PathList = list(map(lambda timestr: path + timestr + '.png',
                             TimeStrList))
 
-        # pdb.set_trace()
 
         frame_and_path = [[frame, pth]
                           for frame, pth in zip(self.CompleteFrames, PathList)]
