@@ -127,7 +127,13 @@ class ShadeSystem:
         pool = Pool(core_num)
 
         pool.map(SaveImage, frame_and_path)
+
         
+    def SaveParams(self, path):
+        
+        for i, Tner in enumerate(self.FitResult):
+            savepath = '{}/trainer{}.pkl'.format(path, i)
+            Tner.save(path = savepath)
 
 
 def interp(modelpair):
