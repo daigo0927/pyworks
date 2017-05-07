@@ -2,7 +2,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 import pdb
-from sklearn.mixture import GMM
+# from sklearn.mixture import GMM
+from sklearn.mixture import GaussianMixture as GMM
 from scipy.interpolate import interp2d
 from misc import sigmoid, Norm2Dmix
 
@@ -74,7 +75,8 @@ class ShadeInit:
 
         self.params = {}
         self.params['mus'] = gmm.means_
-        self.params['covs'] = gmm.covars_
+        # self.params['covs'] = gmm.covars_
+        self.params['covs'] = gmm.covariances_
         self.params['pi'] = gmm.weights_
 
         return self.params
