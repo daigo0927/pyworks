@@ -23,6 +23,7 @@ class ShadeSystem:
     def __init__(self,
                  data,
                  batch_size = 3,
+                 mixture = 20
                  stride = 1):
 
         self.batch_size = batch_size
@@ -30,6 +31,8 @@ class ShadeSystem:
 
         self.data = data
         self.data_len = data.shape[0]
+
+        self.mix = mixture
 
         try:
             if (self.data_len - self.batch_size) % self.stride != 0:
@@ -40,7 +43,7 @@ class ShadeSystem:
             print(e)
             
         # split the data for training
-        self.data_batches = [data[i:i+self.batch_size]
+        self.data_batches = [[data[i:i+self.batch_size], self.mix]
                              for i in np.arange(start = 0,
                                                 stop = self.data_len \
                                                 - self.batch_size + 1,
@@ -62,7 +65,7 @@ class ShadeSystem:
         core_num = np.int(input('input core number : '))
         pool = Pool(core_num)
 
-        modelpairs = [[self.FitResult[i].model, self.FitResult[i+1].model]
+        modelpairs = [[self.FitResult[i].model, self.FitResult[i+1].model, finess]
                       for i in range(len(self.FitResult) - 1)]
 
         # shape(pair, finess, ygrid, xgrid)
@@ -136,11 +139,13 @@ class ShadeSystem:
             Tner.save(path = savepath)
 
 
-def interp(modelpair):
+def interp(modelpair_and_finess):
+
+    premodel, postmodel, finess = modelpair_and_finess
     
-    finess = 15
-    premodel = modelpair[0]
-    postmodel = modelpair[1]
+    # finess = 15
+    # premodel = modelpair[0]
+    # postmodel = modelpair[1]
 
     synthesis = np.array([premodel.GenerateFrame(f = premodel.std_frame+fin) \
                           * (1 - fin) \
@@ -167,13 +172,15 @@ def SaveImage(data_and_path):
     
     
         
-def train(data_batch):
+def train(data_batch_and_mix):
+
+    data_batch, mix = data_batch_and_mix
 
     trainer = Trainer(data_batch = data_batch,
                       outer_drop = 5,
                       LearningRate = 100,
                       iterate = 50,
-                      mixture = 20)
+                      mixture = mix)
     
     trainer.train(plot = False)
 
