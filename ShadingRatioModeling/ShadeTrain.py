@@ -23,7 +23,7 @@ class ShadeSystem:
     def __init__(self,
                  data,
                  batch_size = 3,
-                 mixture = 20
+                 mixture = 20,
                  stride = 1):
 
         self.batch_size = batch_size
