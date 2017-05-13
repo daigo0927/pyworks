@@ -3,6 +3,7 @@ import time
 import datetime
 import pandas as pd
 import pdb
+from tqdm import tqdm
 
 class OuterRadiation:
 
@@ -78,7 +79,7 @@ class OuterRadiation:
             
 
         # for each time
-        for i in range(number):
+        for i in tqdm(range(number)):
 
             df = pd.DataFrame(index = self.latitude[::-1])
 
